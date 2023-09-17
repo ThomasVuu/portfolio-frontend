@@ -9,7 +9,6 @@ class About extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      profileData:{ },
     };
   }
 
@@ -25,9 +24,6 @@ class About extends Component {
     .catch((err) => console.log(err));
   }
   render() {
-    if (this.props.sharedBasicInfo) {
-      var profilepic = "images/" + this.props.sharedBasicInfo.image;
-    }
     const { hello, about_text, about_image } = this.state;
 
     return (
@@ -41,7 +37,6 @@ class About extends Component {
               <div className="polaroid">
                 <span style={{ cursor: "auto" }}>
                   <img
-                    height="250px"
                     src={about_image}
                     alt="Avatar placeholder"
                   />

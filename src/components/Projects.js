@@ -7,18 +7,28 @@ class Projects extends Component {
     this.state = {
       deps: {},
       detailsModalShow: false,
+      apiData: [],
     };
+  }
+
+  componentDidMount() {
+    fetch("http://localhost:8000/projects")
+    .then((res) => res.json())
+    .then((data) => {
+      this.setState({ apiData: data }, () => console.log("Projects fetched...", data));  
+    })
+    .catch((err) => console.log(err));
   }
 
   render() {
     let detailsModalShow = (data) => {
       this.setState({ detailsModalShow: true, deps: data });
     };
-
+    
     let detailsModalClose = () => this.setState({ detailsModalShow: false });
     if (this.props.resumeProjects && this.props.resumeBasicInfo) {
-      var sectionName = this.props.resumeBasicInfo.section_name.projects;
-      var projects = this.props.resumeProjects.map(function (projects) {
+      var projects = this.state.apiData.map(function (projects) {
+        const projectImage = projects.images[0] ? projects.images[0].image : 'http://localhost:8000/media/folio/images/default.jpg';
         return (
           <div
             className="col-sm-12 col-md-6 col-lg-4"
@@ -29,12 +39,12 @@ class Projects extends Component {
               <div className="foto" onClick={() => detailsModalShow(projects)}>
                 <div>
                   <img
-                    src={projects.images[0]}
+                    src={projectImage}
                     alt="projectImages"
                     height="230"
                     style={{marginBottom: 0, paddingBottom: 0, position: 'relative'}}
                   />
-                  <span className="project-date">{projects.startDate}</span>
+                  <span className="project-date">{projects.start_year}</span>
                   <br />
                   <p className="project-title-settings mt-3">
                     {projects.title}
