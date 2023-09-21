@@ -12,14 +12,15 @@ class About extends Component {
     };
   }
 
-  componentDidMount() {
-    // fetch from /about and log the response
+  componentDidMount() { 
     fetch("http://localhost:8000/about")
     .then((res) => res.json())
     .then((data) => {
       const [apiData] = data; // Assuming the response is an array with a single object
       const { hello, about_text, about_image } = apiData;
-      this.setState({ hello, about_text, about_image }, () => console.log("Profile fetched...", apiData));
+      this.setState({ hello, about_text, about_image }, 
+        // () => console.log("Profile fetched...", apiData)
+        );
     })
     .catch((err) => console.log(err));
   }

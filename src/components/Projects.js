@@ -15,7 +15,9 @@ class Projects extends Component {
     fetch("http://localhost:8000/projects")
     .then((res) => res.json())
     .then((data) => {
-      this.setState({ apiData: data }, () => console.log("Projects fetched...", data));  
+      this.setState({ apiData: data }, 
+        // () => console.log("Projects fetched...", data)
+        );  
     })
     .catch((err) => console.log(err));
   }
@@ -24,9 +26,9 @@ class Projects extends Component {
     let detailsModalShow = (data) => {
       this.setState({ detailsModalShow: true, deps: data });
     };
-    
+
     let detailsModalClose = () => this.setState({ detailsModalShow: false });
-    if (this.props.resumeProjects && this.props.resumeBasicInfo) {
+    if (this.state.apiData) {
       var projects = this.state.apiData.map(function (projects) {
         const projectImage = projects.images[0] ? projects.images[0].image : 'http://localhost:8000/media/folio/images/default.jpg';
         return (
