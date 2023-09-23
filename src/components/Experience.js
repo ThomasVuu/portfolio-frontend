@@ -14,7 +14,8 @@ class Experience extends Component {
     };
   }
   componentDidMount() {
-    fetch("http://localhost:8000/experience")
+    const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+    fetch(`${apiUrl}/experience`)
     .then((res) => res.json())
     .then((data) => {
       this.setState({ apiData: data }, 

@@ -11,9 +11,10 @@ class About extends Component {
     this.state = {
     };
   }
-
+  
   componentDidMount() { 
-    fetch("http://localhost:8000/about")
+    const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+    fetch(`${apiUrl}/about`)
     .then((res) => res.json())
     .then((data) => {
       const [apiData] = data; // Assuming the response is an array with a single object
